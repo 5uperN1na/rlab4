@@ -1,7 +1,7 @@
 ---
 title: "IDS Module 4: Data Wrangling"
-author: "Danielle Quinn"
-date: "May 13, 2019"
+author: "Paula Suarez"
+date: "Oct 29, 2019"
 output: html_document
 ---
 
@@ -35,10 +35,32 @@ Please note that you will be asked to store the results of each step in unqiuely
 *Assignment Code:*  
 ```{r}
 # Load libraries
+library(dplyr)
+library (tidyr)
 
 # Import the data
+UK_profession <- read.delim("UK_profession.txt")
+UK_demographics <- read.delim("UK_demographics.txt")
+UK_gains_losses <- read.delim("UK_gains_losses.txt")
+UK_income <- read.delim("UK_income.txt")
 
 # Familiarize yourself with the data
+head(UK_profession, n = 1)
+str(UK_profession)
+glimpse(UK_profession)
+
+head(UK_demographics, n =1)
+str(UK_demographics)
+glimpse(UK_demographics)
+
+head(UK_gains_losses, n = 1)
+str(UK_gains_losses)
+glimpse(UK_gains_losses)
+
+head(UK_income, n = 1)
+str(UK_income)
+glimpse(UK_income)
+
 
 ```
 
@@ -49,6 +71,12 @@ Please note that you will be asked to store the results of each step in unqiuely
 
 ```{r}
 
+UK_data_step1 <- left_join(UK_profession, UK_demographics)
+head(UK_data_step1, 2)
+
+
+
+
 ```
 
 **Question 3**  
@@ -58,6 +86,11 @@ Please note that you will be asked to store the results of each step in unqiuely
 
 ```{r}
 
+UK_income_long_step1 <- gather(UK_income, key = country, value = income, -id)
+
+head(UK_income_long_step1)
+dim(UK_income_long_step1)
+
 ```
 
 **Question 4**  
@@ -66,6 +99,10 @@ Please note that you will be asked to store the results of each step in unqiuely
 - Remove rows in `UK_income_long_step1` with missing values. Store this new data frame in an object called `UK_income_long_step2`.  
 
 ```{r}
+
+UK_income_long_step2 <- drop_na(UK_income_long_step1)
+head(UK_income_long_step2)
+dim(UK_income_long_step2)
 
 ```
 
@@ -77,9 +114,12 @@ Please note that you will be asked to store the results of each step in unqiuely
 
 ```{r}
 # Join UK_income_long_step2 with UK_data_step1
+UK_data_step2 <- left_join(UK_data_step1, UK_income_long_step2)
+head(UK_data_step2, 2)
 
 # Join UK_gains_losses with UK_data_step2
-
+UK_data_step3 <- left_join(UK_data_step2, UK_gains_losses)
+head(UK_data_step3, 2)
 ```
 
 **Question 6**  
@@ -89,6 +129,11 @@ Please note that you will be asked to store the results of each step in unqiuely
 
 ```{r}
 
+UK_data_step4 <- UK_data_step3 %>%
+  select(-id)
+
+glimpse(UK_data_step4)
+
 ```
 
 **Question 7**  
@@ -97,6 +142,11 @@ Please note that you will be asked to store the results of each step in unqiuely
 - Correct the spelling of the `governement_work` column in `UK_data_step4`. Store this new data frame in an object called `UK_data_step5`.    
 
 ```{r}
+
+UK_data_step5 <- UK_data_step4 %>%
+  rename(government_work = governement_work)
+
+names(UK_data_step5)
 
 ```
 
@@ -108,9 +158,12 @@ Please note that you will be asked to store the results of each step in unqiuely
 
 ```{r}
 # Import data
+income_original <- read.csv("income.csv")
 
 # Bind data
 
+income_merged <- bind_rows(income_original, UK_data_step5)
+nrow(income_merged)
 ```
 
 **Question 9**  
@@ -119,6 +172,10 @@ Please note that you will be asked to store the results of each step in unqiuely
 - Convert all columns of `income_merged` containing character vectors to factors. Store this new data frame in an object called `income`.  
 
 ```{r}
+glimpse(income_merged)
+income <- income_merged %>%
+  mutate_if(is.character, as.factor)
+glimpse(income)
 
 ```
 
@@ -126,5 +183,8 @@ Please note that you will be asked to store the results of each step in unqiuely
 
 ```{r}
 # Workspace
+glimpse(income)
+head(income)
+str(income)
 
 ```
