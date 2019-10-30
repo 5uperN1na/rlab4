@@ -1,0 +1,130 @@
+---
+title: "IDS Module 4: Data Wrangling"
+author: "Danielle Quinn"
+date: "May 13, 2019"
+output: html_document
+---
+
+**Assignment 4**  
+
+*Description of the Datasets:*  
+
+In this assignment, you will be given four .txt files containing data from the United Kingdom (UK).  
+
+`UK_profession.txt` : contains profession data of individuals from UK, including `id`, `governement_work`, `occupation`, and `hours_per_week`.  
+
+`UK_demographics.txt` : contains demographic data of individulas from UK, including `id`, `age`, `gender`, `education`, `marital_status`, `relationship`, and `ethnicity`.  
+
+`UK_gains_losses.txt` : contains financial data of individuals from UK, including `id`, `capital_gain`, and `capital_loss`.  
+
+`UK_income.txt` : contains income data of individuals from UK, in wide format.  
+
+*Instructions:*  
+
+The objective of this assignment is to manipulate and clean the UK data into a single data frame called `UK_data` before using `bind_rows()` to combine it with the larger `income` data set. These data sets require similar manipulation and processing as the `nonUS_data` demonstrated in the webinar. The steps needed to complete this task are outlined below. After each step, you should use some of the functions you've learned in modules 2 and 3 to take a closer look at your data frame objects and ensure that they look the way you expect them to.  
+
+Please note that you will be asked to store the results of each step in unqiuely named objects, as described in the instructions below. This is to facilitate autograding, and is not necessarily a best practice!  
+    
+**Question 1**  
+
+*Instructions:*  
+-  Load the {dplyr} and {tidyr} packages.  
+- Import the data contained in the files `UK_profession.txt`, `UK_demographics.txt`, `UK_gains_losses.txt`, and `UK_income.txt` into R, and store the data frames in objects called `UK_profession`, `UK_demographics`, `UK_gains_losses`, and `UK_income`, respectively.  
+- Use functions like `head()` and `glimpse()` to familiarize yourself with the data.  
+
+*Assignment Code:*  
+```{r}
+# Load libraries
+
+# Import the data
+
+# Familiarize yourself with the data
+
+```
+
+**Question 2**  
+
+*Instructions:*  
+-  Join `UK_profession` and `UK_demographics` into a data frame called `UK_data_step1`.  
+
+```{r}
+
+```
+
+**Question 3**  
+
+*Instructions:*  
+- Transform the `UK_income` from wide to long format, with columns called `id`, `country`, and `income`. Store this new data frame in an object called `UK_income_long_step1`.   
+
+```{r}
+
+```
+
+**Question 4**  
+
+*Instructions:*  
+- Remove rows in `UK_income_long_step1` with missing values. Store this new data frame in an object called `UK_income_long_step2`.  
+
+```{r}
+
+```
+
+**Question 5**  
+
+*Instructions:*  
+- Join the `UK_income_long_step2` data to `UK_data_step1`. Store this new data frame in an object called `UK_data_step2`.   
+- Join the `UK_gains_losses` data to `UK_data_step2`. Store this new data frame in an object called `UK_data_step3`.  
+
+```{r}
+# Join UK_income_long_step2 with UK_data_step1
+
+# Join UK_gains_losses with UK_data_step2
+
+```
+
+**Question 6**  
+
+*Instructions:*  
+- Drop the `id` column from `UK_data_step3`. Store this new data frame in an object called `UK_data_step4`.  
+
+```{r}
+
+```
+
+**Question 7**  
+
+*Instructions:*  
+- Correct the spelling of the `governement_work` column in `UK_data_step4`. Store this new data frame in an object called `UK_data_step5`.    
+
+```{r}
+
+```
+
+**Question 8**  
+
+*Instructions:*  
+- Import the `income.csv` dataset and store it in an object called `income_original`.  
+- Bind `UK_data_step5` with `income_original`.  Store this new data frame in an object called `income_merged`.  
+
+```{r}
+# Import data
+
+# Bind data
+
+```
+
+**Question 9**  
+
+*Instructions:*  
+- Convert all columns of `income_merged` containing character vectors to factors. Store this new data frame in an object called `income`.  
+
+```{r}
+
+```
+
+*It is recommended that you explore the newly updated `income` data frame in the space below before submitting this assignment to ensure that the process has worked as expected.*  
+
+```{r}
+# Workspace
+
+```
